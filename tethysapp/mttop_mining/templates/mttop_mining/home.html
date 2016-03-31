@@ -1,9 +1,11 @@
 {% extends "mttop_mining/base.html" %}
 
 {% block app_content %}
-  <h1>Welcome!</h1>
-  <p>Congratulations on creating a new Tethys app!</p>
-  <div id="map"></div>
+  <h1>Mining Volume Calculator</h1>
+  <p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
+<img src="/static/mttop_mining/images/ajax-loader.gif" id="Loading" class="hidden" />
+<div id="map"></div>
+
 {% endblock %}
 
 {% block app_actions %}

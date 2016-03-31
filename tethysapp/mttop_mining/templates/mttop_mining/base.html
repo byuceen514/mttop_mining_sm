@@ -13,16 +13,22 @@
 {% block app_title %}{{ tethys_app.name }}{% endblock %}
 
 {% block app_navigation_items %}
-  <li class="title">App Navigation</li>
-  <li class="active"><a href="">Home</a></li>
-  <li><a href="">Jobs</a></li>
-  <li><a href="">Results</a></li>
-  <li class="title">Steps</li>
-  <li><a href="">1. The First Step</a></li>
-  <li><a href="">2. The Second Step</a></li>
-  <li><a href="">3. The Third Step</a></li>
-  <li class="separator"></li>
-  <li><a href="">Get Started</a></li>
+    <li class="title">Volume Caluculation Walkthrough</li>
+    <li class="title">Step 1</li>
+    <li><button type="button" id="btn_drawpolygon">Click here to initiate polygon-drawing tool.</button></li>
+    <li>Trace out mine area by clicking and dragging the cursor around the shape. </li>
+    <li class="title">Step 2</li>
+    <li><button type="button" id="btn_clickpoint">Click here to initiate tool to extract elevation at a point.</button></li>
+    <li>Identify minimum elevation by clicking on a point in the polygon above which mining will occur or by entering an elevation (in meters) manually in the box below.</li>
+    <input type="number" id="MinimumElevation"/>
+    <li class="title">Step 3</li>
+    <li><button type="button" id="btn_initiatecalc">Once the area and minimum elevation are defined, click here to initiate tool to calculate the volume of mountain above defined elevation.</a></li>
+    <li class="separator"></li>
+
+    <li class="title">Results</li>
+    <li id="VolumeValue"></li>
+    <li id="AreaValue"></li>
+
 {% endblock %}
 
 {% block app_content %}
@@ -33,12 +39,14 @@
 
 {% block content_dependent_styles %}
   {{ block.super }}
+  <link rel="stylesheet" href="https://js.arcgis.com/3.16/dijit/themes/claro/claro.css">
   <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
   <link href="{% static 'mttop_mining/css/main.css' %}" rel="stylesheet"/>
 {% endblock %}
 
 {% block scripts %}
   {{ block.super }}
+  <script>var dojoConfig = { parseOnLoad: true };</script>
   <script src="https://js.arcgis.com/3.16/"></script>
   <script src="{% static 'mttop_mining/js/main.js' %}" type="text/javascript"></script>
 {% endblock %}
