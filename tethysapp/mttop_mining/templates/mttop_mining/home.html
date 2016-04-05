@@ -1,14 +1,34 @@
 {% extends "mttop_mining/base.html" %}
 
 {% block app_content %}
-  <h1>Mining Volume Calculator</h1>
-  <p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
+<h1>Mining Volume Calculator for Juab and Tooele Counties</h1>
+<p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
 <img src="/static/mttop_mining/images/ajax-loader.gif" id="Loading" class="hidden" />
 <div id="map"></div>
 
 {% endblock %}
 
+{% block app_navigation_items %}
+<li class="title">Volume Caluculation Walkthrough</li>
+<li class="title">Step 1</li>
+<li><button type="button" id="btn_drawpolygon">Click here to initiate polygon-drawing tool.</button></li>
+<li>Trace out mine area by clicking and dragging the cursor around the shape. </li>
+<li class="title">Step 2</li>
+<li><button type="button" id="btn_clickpoint">Click here to initiate tool to extract elevation at a point.</button></li>
+<li>Identify minimum elevation by clicking on a point in the polygon above which mining will occur or by entering an elevation (in meters) manually in the box below.</li>
+<input type="number" id="MinimumElevation"/>
+<li class="title">Step 3</li>
+<li><button type="button" id="btn_initiatecalc">Once the area and minimum elevation are defined, click here to initiate tool to calculate the volume of mountain above defined elevation.</a></li>
+<li class="separator"></li>
+
+<li class="title">Results</li>
+<li id="VolumeValue"></li>
+<li id="AreaValue"></li>
+
+{% endblock %}
+
 {% block app_actions %}
-  <a href="" class="btn btn-default">Next</a>
-  <a href="" class="btn btn-default">Back</a>
+<a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
+<a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
+<a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
 {% endblock %}

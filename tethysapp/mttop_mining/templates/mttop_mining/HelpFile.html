@@ -1,0 +1,14 @@
+{% extends "mttop_mining/base.html" %}
+
+{% block app_content %}
+  <h1>Help File for Mining Volume Calculator for Juab and Tooele Counties</h1>
+  <p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
+
+
+{% endblock %}
+
+{% block app_actions %}
+  <a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
+  <a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
+  <a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
+{% endblock %}

@@ -26,6 +26,12 @@ class MountainTopMining(TethysAppBase):
         url_maps = (UrlMap(name='home',
                            url='mttop-mining',
                            controller='mttop_mining.controllers.home'),
+                    UrlMap(name='TechDoc',
+                           url='mttop-mining/TechDoc',
+                           controller='mttop_mining.controllers.TechDoc'),
+                    UrlMap(name='HelpFile',
+                           url='mttop-mining/HelpFile',
+                           controller='mttop_mining.controllers.HelpFile')
         )
 
         return url_maps

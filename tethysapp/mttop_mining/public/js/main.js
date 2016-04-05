@@ -26,7 +26,8 @@ require(["dojo/dom",
             MineAreaPolygon,
             elevation,
             alreadyClicked = false,
-            LoadingPicture = $("#Loading");
+            LoadingPicture = $("#Loading"),
+            mapClickEvent;
 
 
         app = {
@@ -96,7 +97,7 @@ require(["dojo/dom",
 
             $("#btn_clickpoint").on("click", function(){
                 if (!alreadyClicked) {
-                    map.on("click", DrawPoint);
+                    mapClickEvent = map.on("click", DrawPoint);
                     alreadyClicked = true;
                 }
             });
@@ -144,7 +145,7 @@ require(["dojo/dom",
             var featureSet = new FeatureSet();
             featureSet.features = features;
 
-            //map.off("click");
+            mapClickEvent.remove();
             alreadyClicked = false;
 
             var params = {

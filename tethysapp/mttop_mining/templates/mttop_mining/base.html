@@ -12,24 +12,7 @@
 {# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
 {% block app_title %}{{ tethys_app.name }}{% endblock %}
 
-{% block app_navigation_items %}
-    <li class="title">Volume Caluculation Walkthrough</li>
-    <li class="title">Step 1</li>
-    <li><button type="button" id="btn_drawpolygon">Click here to initiate polygon-drawing tool.</button></li>
-    <li>Trace out mine area by clicking and dragging the cursor around the shape. </li>
-    <li class="title">Step 2</li>
-    <li><button type="button" id="btn_clickpoint">Click here to initiate tool to extract elevation at a point.</button></li>
-    <li>Identify minimum elevation by clicking on a point in the polygon above which mining will occur or by entering an elevation (in meters) manually in the box below.</li>
-    <input type="number" id="MinimumElevation"/>
-    <li class="title">Step 3</li>
-    <li><button type="button" id="btn_initiatecalc">Once the area and minimum elevation are defined, click here to initiate tool to calculate the volume of mountain above defined elevation.</a></li>
-    <li class="separator"></li>
 
-    <li class="title">Results</li>
-    <li id="VolumeValue"></li>
-    <li id="AreaValue"></li>
-
-{% endblock %}
 
 {% block app_content %}
 {% endblock %}
