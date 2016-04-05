@@ -3,6 +3,7 @@
  */
 var app;
 
+//The environment settings and functions that are necessary for the various functions.
 require(["dojo/dom",
         "esri/Color",
         "esri/domUtils",
@@ -20,6 +21,7 @@ require(["dojo/dom",
     function (dom, Color, domUtils, Map, ArcGISDynamicMapServiceLayer, Graphic, Geoprocessor, FeatureSet, Draw, SimpleLineSymbol, SimpleFillSymbol, LinearUnit, SimpleMarkerSymbol) {
         'use strict';
 
+//The global variables to be used in the functions.
         var map = null,
             gp,
             toolbar = null,
@@ -47,15 +49,19 @@ require(["dojo/dom",
                 layer.setOpacity(0.7);
                 map.addLayers([layer]);
             });
+            //Run the main Geoprocessing to calculate the volume of material to be removed from the mountain top.
             gp.getResultData(jobinfo.jobId, "MineVolume", function (data) {
+                //The loading animation displays only while the process is running.
                 LoadingPicture.addClass("hidden");
                 var MineVolume = data.value.features[0].attributes.SUM;
                 var MineArea = data.value.features[0].attributes.AREA;
+                //The mine volume and area are given the variables MineVolume and MineArea, respectively, which will be used later to print the results to the screen.
                 $("#VolumeValue").text("Volume above elevation (cubic meters): " + MineVolume);
                 $("#AreaValue").text("Area within mine selection above elevation (square meters): " + MineArea);
             }, null);
         }
 
+//Function to give the status of the job.
         function gpJobStatus(jobinfo) {
             domUtils.show(dom.byId('status'));
             var jobstatus = '';
@@ -88,13 +94,16 @@ require(["dojo/dom",
         }
 
         function initTools(evtObj) {
-
+// The function for drawing the study area polygon.
             app.toolbar = toolbar = new Draw(evtObj.map);
+            // The trigger for drawing the polygon is clicking on the button called btn_drawpolygon
             $("#btn_drawpolygon").on("click", function(){
-                app.toolbar.activate(esri.toolbars.Draw.POLYGON);                //FREEHAND_POLYGON);
+             //The specific shape is a Polygon, which means that the user clicks for each vertex, which keeps the request shorter and more manageable.
+                app.toolbar.activate(esri.toolbars.Draw.POLYGON);                // another option of polygon is FREEHAND_POLYGON);
                 app.map.hideZoomSlider();
             });
 
+//The trigger for starting the function to select a point for the minimum elevation is to click the button called btn_clickpoint.
             $("#btn_clickpoint").on("click", function(){
                 if (!alreadyClicked) {
                     mapClickEvent = map.on("click", DrawPoint);
@@ -102,10 +111,14 @@ require(["dojo/dom",
                 }
             });
 
+//The polygon is added to the map.
             toolbar.on("draw-end", addPolygontoMap);
 
+//The ComputeVolume function is started by clicking the button called btn_initiatecalc.
             $("#btn_initiatecalc").on("click", ComputeVolume);
         }
+        
+        //The symbology for the polygon and other map layout specifications.
         function addPolygontoMap(evtObj){
             var symbol, graphic, geometry, features;
 
@@ -128,7 +141,7 @@ require(["dojo/dom",
             MineAreaPolygon.features = features;
         }
 
-
+//The specifications for drawing the point.
         function DrawPoint(evt) {
             LoadingPicture.removeClass("hidden");
             map.graphics.clear();
@@ -158,6 +171,7 @@ require(["dojo/dom",
             gp.execute(params, GetElevationfromPoint);
         }
 
+//This function retrieves the elevation from the point that is selected.
         function GetElevationfromPoint(results, messages) {
             LoadingPicture.addClass("hidden");
             elevation = results[0].value.features[0].attributes.RASTERVALU;
