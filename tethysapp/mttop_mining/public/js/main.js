@@ -56,7 +56,7 @@ require(["dojo/dom",
                 var MineVolume = data.value.features[0].attributes.SUM;
                 var MineArea = data.value.features[0].attributes.AREA;
                 //The mine volume and area are given the variables MineVolume and MineArea, respectively, which will be used later to print the results to the screen.
-                $("#VolumeValue").text("Volume above elevation (cubic meters): " + MineVolume);
+                $("#VolumeValue").text("Volume above elevation (cubic meters): " + (MineVolume - (MineArea * elevation));
                 $("#AreaValue").text("Area within mine selection above elevation (square meters): " + MineArea);
             }, null);
         }
