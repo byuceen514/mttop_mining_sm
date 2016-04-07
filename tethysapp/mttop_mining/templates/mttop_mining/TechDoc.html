@@ -3,11 +3,11 @@
 {% block app_content %}
 <h1>Technical Documentation for Mining Volume Calculator for Juab and Tooele Counties</h1>
 
-<h3>Created by Shawn Crawley and Mariah Chambers</h3>
+<h6>Created by Shawn Crawley and Mariah Chambers</h6>
 
-<h3>CE En 594R – Winter 2016</h3>
+<h6>CE En 594R – Winter 2016</h6>
 
-<h3>Brigham Young University</h3>
+<h6>Brigham Young University</h6>
 
 <h2>Overview</h2>
 
@@ -58,9 +58,9 @@
 <h3>Code Design</h3>
 
 <p>The code is a combination of Java Script and Esri ArcGIS web services. The geoprocessing is performed by an ArcGIS model that has been published to an ArcGIS server. There are two models that are used in the “Mountain Top Mining” web app, which are shown in Figures 1 and 2. The model in Figure 1 extracts the value of the elevation from a Digital Elevation Model at point, using the Extract Value to Point tool, which is placed by the user. The model in Figure 2 calculates the volume of mountian inside the specified study area and above the specified minimum elevation. This is accomplished by clipping the Digital Elevation Model to the study area, selecting all values above the minimum elevation, multiplying each cell by 100 (because the cell size is 10), and summing the calculated volume from each cell. The final sumation is accomplished by using the Zonal Statistics tool.</p>
-<p><img src="/static/mttop_mining/images/ExtractElevationFromPointModel.png"></p>
+<p><img src="/static/mttop_mining/images/ExtractElevationFromPointModel.png" width="100%"></p>
 <p>Figure 1: Model to extract elevation from point.</p>
-<p><img src="/static/mttop_mining/images/VolumeCalculationModel.png"></p>
+<p><img src="/static/mttop_mining/images/VolumeCalculationModel.png" width="100%"></p>
 <p>Figure 2: Model to calulate the volume of a mountain above a specified elevation.</p>
 <p>The Java Script connects the model to the user interface. We used Esri ArcGIS Javascript API examples as a starting point, and adjusted it as necessary to fit the “Mountain Top Mining” web app specifications. Those examples are available at <a href="https://developers.arcgis.com/javascript/jssamples/">https://developers.arcgis.com/javascript/jssamples/</a> . The Javascript has event listeners which respond to the user’s clicks on either buttons or the map, depending on the specific step in the process. These listeners trigger the geoprocessing functions on the ArcGIS server to retrieve and porcess the data and finally retreive and display the results.</p>
 
