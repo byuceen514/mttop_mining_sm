@@ -98,7 +98,7 @@ require(["dojo/dom",
             app.toolbar = toolbar = new Draw(evtObj.map);
             // The trigger for drawing the polygon is clicking on the button called btn_drawpolygon
             $("#btn_drawpolygon").on("click", function(){
-             //The specific shape is a Polygon, which means that the user clicks for each vertex, which keeps the request shorter and more manageable.
+                //The specific shape is a Polygon, which means that the user clicks for each vertex, which keeps the request shorter and more manageable.
                 app.toolbar.activate(esri.toolbars.Draw.POLYGON);                // another option of polygon is FREEHAND_POLYGON);
                 app.map.hideZoomSlider();
             });
@@ -117,7 +117,6 @@ require(["dojo/dom",
 //The ComputeVolume function is started by clicking the button called btn_initiatecalc.
             $("#btn_initiatecalc").on("click", ComputeVolume);
         }
-        
         //The symbology for the polygon and other map layout specifications.
         function addPolygontoMap(evtObj){
             var symbol, graphic, geometry, features;

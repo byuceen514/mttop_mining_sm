@@ -8,7 +8,7 @@ class MountainTopMining(TethysAppBase):
 
     name = 'Mountain Top Mining'
     index = 'mttop_mining:home'
-    icon = 'mttop_mining/images/icon.gif'
+    icon = 'mttop_mining/images/photo.png'
     package = 'mttop_mining'
     root_url = 'mttop-mining'
     color = '#2ecc71'

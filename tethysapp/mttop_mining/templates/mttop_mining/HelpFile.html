@@ -1,14 +1,91 @@
 {% extends "mttop_mining/base.html" %}
 
 {% block app_content %}
-  <h1>Help File for Mining Volume Calculator for Juab and Tooele Counties</h1>
-  <p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
+<h1>Help File for Mining Volume Calculator for Juab and Tooele Counties</h1>
+
+<h3>Created by Shawn Crawley and Mariah Chambers</h3>
+
+<h3>CE En 594R – Winter 2016</h3>
+
+<h3>Brigham Young University</h3>
+
+<h2 dir="ltr" >Overview</h2>
+
+<p>The purpose of the “Mountain Top Mining” web app is to allow users to calculate the volume of an extraction of earth above a user-defined elevation and within a user-defined area. Though this tool could theoretically work anywhere in the world, it is currently set up to only function within Juab and Tooele counties, Utah. The following instructions provide instructions for the user to interact with the web app and to provide feedback for improving the web app.</p>
+
+<br />
+<h2 dir="ltr" > Understanding the User Interface</h2>
+
+<br />
+<p>Figure 1 contains a screenshot of the home page of the “Mountain Top Mining” web app with labels indicating each of its key components. Each component will be explained below.</p>
+<img src="/static/mttop_mining/images/AnnotatedApp.png"/>
+<p>Figure 1: Annotated screenshot of main page of app</p>
+<br />
+<h3>Sidebar</h3>
+
+<p>The sidebar component is located on the left side of the page. Its visibility can be toggled by clicking the “hamburger” icon (the three small, white horizontal lines) in the very upper-left corner of the page. It contains both the “Step-by-Step Instructions” component, as well as the “Results Display” component.</p>
+
+<br />
+<h3>Step-by-Step Instructions</h3>
+
+<p>The “Step-by-Step Instructions” component is located within the “Sidebar” component. It is meant to guide the user through using the app. There are 3 main steps listed, each with a corresponding button that initiates some portion of the pertaining step. For more detailed information about these steps, see the last section of this documentation titled “Using the Website.”</p>
+
+<br />
+<h3>Results Display</h3>
+
+<p>The “Results Display” component is located within the “Sidebar” component. It is initially empty, and only populates once “Step 3” has been successfully completed by the user. At this point, it will be populated with textual results indicating the area of a user-specified polygon, and the volume of material located above a user-specified elevation within the user-specified polygonic area.</p>
+
+<br />
+<h3>Map</h3>
+
+<p>The “Map” component is located in the front and center of the main page, and takes up the majority of the space. It contains a view of a map that is rendered by the ESRI Javascript API. The user can click the plus and minus icons in the upper-left corner of the map to zoom in and out. The user can also roll the wheel of the mouse forward and backward to achieve the same effect. The map can be panned to a new center view by clicking and dragging on the map with the mouse.</p>
+
+<br />
+<h3>Loading Status Display</h3>
+
+<p>The “Loading Status Display” component is located right above the upper-right corner of the map. This space is initially blank, but will be filled with a “Loading” animation each time a background process is running. The appearance of this “Loading” animation indicates to the user that they should stop all activity (clicking, scrolling, etc.) until the animation disappears. A change will usually occur on the page in conjunction with the animation disappearing, such as text appearing in the “Results Display” component, or an elevation (number) appearing in the empty number input box under Step 2 of the “Step-by-Step Instructions” component.</p>
+
+<br />
+<h3>Exit Button</h3>
+
+<p>The “Exit Button” component is located in the upper-right corner of the page. This component is a button that can be clicked to exit the “Mountain Top Mining” web app. The user will be redirected to the Apps Library page from which other apps may be viewed and loaded.</p>
+
+<br />
+<h3>Navigation Buttons</h3>
+
+<p>The “Navigation Buttons” component is located in the bottom-right corner of the page, right below the “Map” component. It contains three separate buttons, labeled “Tech Documentation,” “Help,” and “Home,” respectively. Each of these buttons redirect the user to a new page, if not already on the page corresponding to the button clicked, or will refresh the page, if already on the page corresponding to the button clicked. The “Tech Documentation” button corresponds to a page where the user can read more about the technical aspects of the “Mountain Top Mining” app, such as the system requirements and how the app can be downloaded. The “Help” button corresponds to this page that you are currently viewing while you read this. As you should now know, this page gives detailed instructions pertaining to using the “Mountain Top Mining” web app. The “Home” button corresponds to the main page that corresponds to the “Mountain Top Mining” web app.</p>
+
+<h2 dir="ltr" >Using the App</h2>
+
+<p>The “Mountain Top Mining” web app was designed with the intention that it can be easily used without needing to reference additional instructions. As shown in Figure 1, the home page of the app has a sidebar that contains step-by-step instructions that guide the user from start to finish. With that said, this section attempts to expound on these built-in instructions and clarify the details.</p>
+
+<br />
+<h3>Step 1: Choose a “study area”</h3>
+
+<p>The term “study area” refers to a bounded area within which the user would be interested in calculating the volume of material above a certain elevation. This area is defined by drawing a polygon that roughly represents the area on the map. Initially clicking on the map will do nothing, but once the button labeled “Click here to initiate polygon-drawing tool” has been clicked, each subsequent click on the map will add a vertex to the polygon. To finish drawing the polygon, double-click on the map in the position of the final vertex. This will turn off the polygon-drawing tool and the image of the polygon you have drawn will remain on the screen. If unhappy with the polygon drawn, you can re-click on the button and restart the polygon-drawing process. Please note that your previously-drawn polygon will remain on the map until you have completed your new polygon.</p>
+
+<h3>Step 2: Choose an elevation</h3>
+
+<p>Once your “study area” has been defined, you must define the elevation above which you will be extracting material. This elevation can be entered directly into the empty number input box if the elevation of interest is already known. If, on the other hand, the actual elevation is not known but rather the geographic location of a point that represents the elevation is known, you can click the button labeled “Click here to initiate tool to extract elevation at a point.” Clicking this button will enable a point-drawing tool which is similar to the polygon-drawing tool in that now, once you click on the map, a single point will be drawn. In addition to drawing a single point, a background geoprocessing task will also run which extracts the elevation at that point. While the geoprocessing tool is running a “Loading” icon will appear in the upper-right corner of the map. Once the geoprocessing tool has completed, the “Loading” icon will disappear and the extracted elevation will appear in the number input box, overwriting any previous contents. </p>
+
+<p>Once the elevation appears in the number input box, it can still be modified. The number input box provides an up and down arrow that will either increase or decrease the current value in the box by one and round it to the nearest integer. Thus, the desired elevation should be able to be targeted quite simply. Also, you can re-click the button to extract an elevation to a new point.</p>
+
+<br />
+<h3>Step 3: Initiate volume calculation tool</h3>
+
+<p>Once the area and elevation are defined, the tool that actually calculates the volume of earth located above the elevation within the area of interest can be initiated. This is simply done by clicking the button labeled “Once the area and minimum elevation are defined, click here to initiate tool to calculate the volume of mountain above defined elevation.” Again, the “Loading” icon will appear in the upper-right corner of the map while the process runs in the background. Once the processing is finished, the “Loading” icon will disappear and the results will appear under the “Results” header, which is bottom-most section of the sidebar. The results will display both the area of the drawn polygon, and the volume of the earth located located above the user-specified elevation within the user-specified area of interest.</p>
+
+<h3>Step 4: Using the results</h3>
+
+<p>The results obtained from the “Mountain Top Mining” app can be used in making more informed decisions regarding the project you are tackling. Please note that the results are not completely accurate and may often be far from it. Again, these results should only be used as an additional source of information that is not simply taken at face value. Please use wise judgment and additional data from other sources to corroborate the data produced using this tool.</p>
+
+<br />
 
 
 {% endblock %}
 
 {% block app_actions %}
-  <a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
-  <a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
-  <a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
+<a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
+<a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
+<a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
 {% endblock %}

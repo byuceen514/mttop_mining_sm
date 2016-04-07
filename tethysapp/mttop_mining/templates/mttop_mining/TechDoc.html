@@ -1,14 +1,76 @@
 {% extends "mttop_mining/base.html" %}
 
 {% block app_content %}
-  <h1>Technical Documentation for Mining Volume Calculator for Juab and Tooele Counties</h1>
-  <p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
+<h1>Technical Documentation for Mining Volume Calculator for Juab and Tooele Counties</h1>
 
+<h3>Created by Shawn Crawley and Mariah Chambers</h3>
 
+<h3>CE En 594R – Winter 2016</h3>
+
+<h3>Brigham Young University</h3>
+
+<h2>Overview</h2>
+
+<p>The purpose of the “Mountian Top Mining” web app is to allow users to calculate the volume of material to be removed in a user-specified mountain top mining operation. The following instructions provide technical specification and software design for maintaining and operating the website. </p>
+
+<h2>Technical Specifications</h2>
+
+<p>The “Mountain Top Mining” web app was developed as part of the GIS Programming course taught through the Civil and Environmental Engineering Department at Brigham Young University (BYU). It was built using Tethys Platform, a web development framework created at BYU that simplifies the process of creating interactive geospatial web apps. Though Tethys Platform provides a basic design template and framework, the content, layout, and interactive elements unique to the “Mountain Top Mining” web app were co-created by Shawn Crawley and Mariah Chambers.</p>
+
+<h3>License</h3>
+
+<p>The web-site content is licensed under the MIT License as follows:</p>
+
+<p>Copyright (c) 2016 Shawn Crawley and Mariah Chambers</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<h3>Network Requirements</h3>
+
+<p>The “Mountain Top Mining” web app is published to a Brigham Young University server accessible from Tethys.byu.edu. This website is only accessible from the Brigham Young University network.</p>
+
+<h3>Installation and Setup</h3>
+
+<p>The Tethys Platform, and thus the "Mountain Top Mining" web app, must be set up to run on a Linux operating system. Linux, as an open-source operating system, is free to obtain and install. If a physical machine is not available to run Linux as its native operating system, virtual machine programs, such as VirtualBox (<a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>), are available for free and can be downloaded and installed on both Windows and Mac operating systems.</p>
+
+<p>Once one has access to a Linux operating system, Tethys can be installed by following the instruction given at <a href="http://docs.tethysplatform.org/en/latest/installation.html">http://docs.tethysplatform.org/en/latest/installation.html</a>. Another option is to install a Linux virtual image that has Tethys already pre-configured. This image can be obtained by contacting Dr. Daniel Ames at Brigham Young University (<a href="http://www.danames.com/">http://www.danames.com/</a>).</p>
+
+<p>Once Tethys has been installed, the source code for "Mountain Top Mining" web app can be obtained and downloaded from GitHub at <a href="https://github.com/byuceen514/mttop_mining_sm">https://github.com/byuceen514/mttop_mining_sm</a>. Once the source code is stored locally on your computer, the command line must be used to run the setup.py script that is located in the root folder with the “develop” parameter (“python setup.py develop”). This command must be run while in the Tethys python environment (“. /usr/lib/tethys/bin/activate”).</p>
+
+<p>Then, the Tethys dockers must be started (“tethys docker start”).</p>
+
+<p>Finally, the server can be started (“tethys manage start”), and you can navigate to the Tethys Apps Library, which is defaulted to port 8000 of the localhost: <a href="http://127.0.0.1:8000/apps/">http://127.0.0.1:8000/apps/</a>. If everything was done correctly, you should see the Tethys Apps Library page with an icon for the “Mountain Top Mining” app. This icon can then be clicked to start the app.</p>
+
+<h2>User Interface Overview</h2>
+
+<p>The “Mountain Top Mining” web app is an interactive mapping environment where the user can follow the step by step instructions in the side bar to 1) specify a study area, 2) Specify a minimum elevation for the mining operation, and 3) retrieve the calculation of the volume and area of the mountain to be mined in a mountain top mining operation.</p>
+
+<h2>How It Works</h2>
+
+<h3>User Interface</h3>
+
+<p>See Help page.</p>
+
+<h3>Code Design</h3>
+
+<p>The code is a combination of Java Script and Esri ArcGIS web services. The geoprocessing is performed by an ArcGIS model that has been published to an ArcGIS server. There are two models that are used in the “Mountain Top Mining” web app, which are shown in Figures 1 and 2. The model in Figure 1 extracts the value of the elevation from a Digital Elevation Model at point, using the Extract Value to Point tool, which is placed by the user. The model in Figure 2 calculates the volume of mountian inside the specified study area and above the specified minimum elevation. This is accomplished by clipping the Digital Elevation Model to the study area, selecting all values above the minimum elevation, multiplying each cell by 100 (because the cell size is 10), and summing the calculated volume from each cell. The final sumation is accomplished by using the Zonal Statistics tool.</p>
+<p><img src="/static/mttop_mining/images/ExtractElevationFromPointModel.png"></p>
+<p>Figure 1: Model to extract elevation from point.</p>
+<p><img src="/static/mttop_mining/images/VolumeCalculationModel.png"></p>
+<p>Figure 2: Model to calulate the volume of a mountain above a specified elevation.</p>
+<p>The Java Script connects the model to the user interface. We used Esri ArcGIS Javascript API examples as a starting point, and adjusted it as necessary to fit the “Mountain Top Mining” web app specifications. Those examples are available at <a href="https://developers.arcgis.com/javascript/jssamples/">https://developers.arcgis.com/javascript/jssamples/</a> . The Javascript has event listeners which respond to the user’s clicks on either buttons or the map, depending on the specific step in the process. These listeners trigger the geoprocessing functions on the ArcGIS server to retrieve and porcess the data and finally retreive and display the results.</p>
+
+<h3>Image Credits</h3>
+<p>Icon made by <a href="www.freepik.com">Freepik</a>from <a href="www.flaticon.com">www.flaticon.com</a></p>
+<p>Annotation of figure 1 in Help file was done using <a href="http://www.szoter.com/launch/">http://www.szoter.com</a>.</p>
 {% endblock %}
 
 {% block app_actions %}
-  <a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
-  <a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
-  <a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
+<a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
+<a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
+<a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
 {% endblock %}
