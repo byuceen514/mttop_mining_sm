@@ -12,7 +12,7 @@ class MountainTopMining(TethysAppBase):
     package = 'mttop_mining'
     root_url = 'mttop-mining'
     color = '#2ecc71'
-    description = 'Place a brief description of your app here.'
+    description = 'This is a web app which will caclulate the volume of mountain to be removed in a top cut mining operation'
     enable_feedback = False
     feedback_emails = []
 

@@ -3,13 +3,12 @@
 {% block app_content %}
 <h1>Mining Volume Calculator for Juab and Tooele Counties</h1>
 <p>Follow the instructions in the side bar to calculate the volume of material that must be removed in a mountain top mining operation.</p>
-<img src="/static/mttop_mining/images/ajax-loader.gif" id="Loading" class="hidden" />
 <div id="map"></div>
 
 {% endblock %}
 
 {% block app_navigation_items %}
-<li class="title">Volume Caluculation Walkthrough</li>
+<li class="title">Instructions</li>
 <li class="title">Step 1</li>
 <li><button type="button" id="btn_drawpolygon">Click here to initiate polygon-drawing tool.</button></li>
 <li>Trace out mine area by clicking and dragging the cursor around the shape. </li>
@@ -25,10 +24,4 @@
 <li id="VolumeValue"></li>
 <li id="AreaValue"></li>
 
-{% endblock %}
-
-{% block app_actions %}
-<a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
-<a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
-<a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
 {% endblock %}

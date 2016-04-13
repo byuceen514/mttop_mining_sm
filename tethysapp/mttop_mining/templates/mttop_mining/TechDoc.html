@@ -9,6 +9,8 @@
 
 <h6>Brigham Young University</h6>
 
+<h6>View code on <a href="https://github.com/byuceen514/mttop_mining_sm" target="_blank">GitHub</a></h6>
+
 <h2>Overview</h2>
 
 <p>The purpose of the “Mountian Top Mining” web app is to allow users to calculate the volume of material to be removed in a user-specified mountain top mining operation. The following instructions provide technical specification and software design for maintaining and operating the website. </p>
@@ -22,6 +24,7 @@
 <p>The web-site content is licensed under the MIT License as follows:</p>
 
 <p>Copyright (c) 2016 Shawn Crawley and Mariah Chambers</p>
+<p>Copyright (c) 2013, Brigham Young University All rights reserved.</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 
@@ -35,15 +38,16 @@
 
 <h3>Installation and Setup</h3>
 
-<p>The Tethys Platform, and thus the "Mountain Top Mining" web app, must be set up to run on a Linux operating system. Linux, as an open-source operating system, is free to obtain and install. If a physical machine is not available to run Linux as its native operating system, virtual machine programs, such as VirtualBox (<a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>), are available for free and can be downloaded and installed on both Windows and Mac operating systems.</p>
+<p>The Tethys Platform, and thus the "Mountain Top Mining" web app, must be set up to run on a Linux operating system. Linux, as an open-source operating system, is free to obtain and install. If a physical machine is not available to run Linux as its native operating system, virtual machine programs, such as VirtualBox (<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">https://www.virtualbox.org/wiki/Downloads</a>), are available for free and can be downloaded and installed on both Windows and Mac operating systems.</p>
 
-<p>Once one has access to a Linux operating system, Tethys can be installed by following the instruction given at <a href="http://docs.tethysplatform.org/en/latest/installation.html">http://docs.tethysplatform.org/en/latest/installation.html</a>. Another option is to install a Linux virtual image that has Tethys already pre-configured. This image can be obtained by contacting Dr. Daniel Ames at Brigham Young University (<a href="http://www.danames.com/">http://www.danames.com/</a>).</p>
+<p>Once one has access to a Linux operating system, Tethys can be installed by following the instruction given at <a href="http://docs.tethysplatform.org/en/latest/installation.html" target="_blank">http://docs.tethysplatform.org/en/latest/installation.html</a>. Another option is to install a Linux virtual image that has Tethys already pre-configured. This image can be obtained by contacting Dr. Daniel Ames at Brigham Young University (<a href="http://www.danames.com/" target="_blank">http://www.danames.com/</a>).</p>
 
-<p>Once Tethys has been installed, the source code for "Mountain Top Mining" web app can be obtained and downloaded from GitHub at <a href="https://github.com/byuceen514/mttop_mining_sm">https://github.com/byuceen514/mttop_mining_sm</a>. Once the source code is stored locally on your computer, the command line must be used to run the setup.py script that is located in the root folder with the “develop” parameter (“python setup.py develop”). This command must be run while in the Tethys python environment (“. /usr/lib/tethys/bin/activate”).</p>
+<p>Once Tethys has been installed, the source code for "Mountain Top Mining" web app can be obtained and downloaded from GitHub at <a href="https://github.com/byuceen514/mttop_mining_sm" target="_blank">https://github.com/byuceen514/mttop_mining_sm</a>. The source code references an ArcGIS geoprocessing service that has been published to a private ArcGIS server. Therefore, a new ArcGIS model will need to be created (see model design in Code Design section of this document) and published to an ArcGIS server. For instructions on how to do this, see <a href="http://help.arcgis.com/en/arcgisdesktop/10.0/pdf/creating-geoprocessing-services-tutorial.pdf" target="_blank">the ArcGIS tutorial</a>.</p>
+<p>Once the source code is stored locally on your computer and the geoprocessing service is published to the ArcGIS server, the command line must be used to run the setup.py script that is located in the root folder with the “develop” parameter (“python setup.py develop”). This command must be run while in the Tethys python environment (“. /usr/lib/tethys/bin/activate”).</p>
 
 <p>Then, the Tethys dockers must be started (“tethys docker start”).</p>
 
-<p>Finally, the server can be started (“tethys manage start”), and you can navigate to the Tethys Apps Library, which is defaulted to port 8000 of the localhost: <a href="http://127.0.0.1:8000/apps/">http://127.0.0.1:8000/apps/</a>. If everything was done correctly, you should see the Tethys Apps Library page with an icon for the “Mountain Top Mining” app. This icon can then be clicked to start the app.</p>
+<p>Finally, the server can be started (“tethys manage start”), and you can navigate to the Tethys Apps Library, which is defaulted to port 8000 of the localhost: <a href="http://127.0.0.1:8000/apps/" target="_blank">http://127.0.0.1:8000/apps/</a>. If everything was done correctly, you should see the Tethys Apps Library page with an icon for the “Mountain Top Mining” app. This icon can then be clicked to start the app.</p>
 
 <h2>User Interface Overview</h2>
 
@@ -62,15 +66,9 @@
 <p>Figure 1: Model to extract elevation from point.</p>
 <p><img src="/static/mttop_mining/images/VolumeCalculationModel.png" width="100%"></p>
 <p>Figure 2: Model to calulate the volume of a mountain above a specified elevation.</p>
-<p>The Java Script connects the model to the user interface. We used Esri ArcGIS Javascript API examples as a starting point, and adjusted it as necessary to fit the “Mountain Top Mining” web app specifications. Those examples are available at <a href="https://developers.arcgis.com/javascript/jssamples/">https://developers.arcgis.com/javascript/jssamples/</a> . The Javascript has event listeners which respond to the user’s clicks on either buttons or the map, depending on the specific step in the process. These listeners trigger the geoprocessing functions on the ArcGIS server to retrieve and porcess the data and finally retreive and display the results.</p>
+<p>The Java Script connects the model to the user interface. We used Esri ArcGIS Javascript API examples as a starting point, and adjusted it as necessary to fit the “Mountain Top Mining” web app specifications. Those examples are available at <a href="https://developers.arcgis.com/javascript/jssamples/" target="_blank">https://developers.arcgis.com/javascript/jssamples/</a> . The Javascript has event listeners which respond to the user’s clicks on either buttons or the map, depending on the specific step in the process. These listeners trigger the geoprocessing functions on the ArcGIS server to retrieve and porcess the data and finally retreive and display the results.</p>
 
 <h3>Image Credits</h3>
-<p>Icon made by <a href="www.freepik.com">Freepik</a>from <a href="www.flaticon.com">www.flaticon.com</a></p>
-<p>Annotation of figure 1 in Help file was done using <a href="http://www.szoter.com/launch/">http://www.szoter.com</a>.</p>
-{% endblock %}
-
-{% block app_actions %}
-<a href="{% url 'mttop_mining:home' %}" class="btn btn-default">Home</a>
-<a href="{% url 'mttop_mining:HelpFile' %}" class="btn btn-default">Help</a>
-<a href="{% url 'mttop_mining:TechDoc' %}" class="btn btn-default">Tech Documentation</a>
+<p>Icon made by <a href="www.freepik.com">Freepik</a>from <a href="www.flaticon.com" target="_blank">www.flaticon.com</a></p>
+<p>Annotation of figure 1 in Help file was done using <a href="http://www.szoter.com/launch/" target="_blank">http://www.szoter.com</a>.</p>
 {% endblock %}

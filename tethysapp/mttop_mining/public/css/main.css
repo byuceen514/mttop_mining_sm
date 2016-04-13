@@ -4,11 +4,6 @@
     padding: 0;
     width: 100%;
 }
-#Loading {
-    position: fixed;
-    top: 109px;
-    right: 350px;
-}
 #info {
     bottom: 20px;
     color: #444;
@@ -21,4 +16,14 @@
     text-align: left;
     width: 200px;
     z-index: 40;
+}
+#div-loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

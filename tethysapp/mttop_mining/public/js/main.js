@@ -1,6 +1,19 @@
-/*global
- console, require
+/*jslint
+ browser
  */
+/*global
+ console, require, $, esri
+ */
+/*property
+ AREA, Draw, MiningArea, POLYGON, Point, RASTERVALU, STYLE_SOLID, SUM,
+ Where_clause, activate, add, addClass, addLayers, attributes, basemap,
+ byId, center, clear, deactivate, error, execute, features, geometry,
+ getResultData, getResultImageLayer, graphics, hideZoomSlider, jobId,
+ jobStatus, log, map, mapPoint, on, parse, push, remove, removeClass,
+ setColor, setOpacity, setOutline, setOutputSpatialReference, setSize, show,
+ showZoomSlider, submitJob, text, toolbar, toolbars, val, value, wkid, zoom
+ // */
+
 var app;
 
 //The environment settings and functions that are necessary for the various functions.
@@ -8,6 +21,7 @@ require(["dojo/dom",
         "esri/Color",
         "esri/domUtils",
         "esri/map",
+        "dojo/parser",
         "esri/layers/ArcGISDynamicMapServiceLayer",
         "esri/graphic",
         "esri/tasks/Geoprocessor",
@@ -16,9 +30,10 @@ require(["dojo/dom",
         "esri/symbols/SimpleLineSymbol",
         "esri/symbols/SimpleFillSymbol",
         "esri/tasks/LinearUnit",
-        "esri/symbols/SimpleMarkerSymbol"
+        "esri/symbols/SimpleMarkerSymbol",
+        "esri/layers/KMLLayer"
     ],
-    function (dom, Color, domUtils, Map, ArcGISDynamicMapServiceLayer, Graphic, Geoprocessor, FeatureSet, Draw, SimpleLineSymbol, SimpleFillSymbol, LinearUnit, SimpleMarkerSymbol) {
+    function (dom, Color, domUtils, Map, parser, ArcGISDynamicMapServiceLayer, Graphic, Geoprocessor, FeatureSet, Draw, SimpleLineSymbol, SimpleFillSymbol, LinearUnit, SimpleMarkerSymbol, KMLLayer) {
         'use strict';
 
 //The global variables to be used in the functions.
@@ -28,7 +43,7 @@ require(["dojo/dom",
             MineAreaPolygon,
             elevation,
             alreadyClicked = false,
-            LoadingPicture = $("#Loading"),
+            LoadingPicture = $("#div-loading"),
             mapClickEvent;
 
 
@@ -41,8 +56,20 @@ require(["dojo/dom",
         app.map = map = new Map("map", {
             basemap: "streets",
             center: [-112.994, 39.9057],
-            zoom: 9
+            zoom: 8
         });
+
+        var baseMapLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://geoserver.byu.edu/arcgis/rest/services/MariahShawn/JuabTooele/MapServer");
+        map.addLayer(baseMapLayer);
+        //
+        //parser.parse();
+        //
+        //var kmlUrl = "/static/mttop_mining/data/JuabToole.kml";
+        //var kml = new KMLLayer(kmlUrl);
+        //map.addLayers([kml]);
+        //kml.on("load", function() {
+        //domStyle.set("loading", "display", "none");
+        //});
         function gpJobComplete(jobinfo) {
             //get the result map service layer and add to map
             gp.getResultImageLayer(jobinfo.jobId, "TopCut", null, function (layer) {
@@ -56,14 +83,14 @@ require(["dojo/dom",
                 var MineVolume = data.value.features[0].attributes.SUM;
                 var MineArea = data.value.features[0].attributes.AREA;
                 //The mine volume and area are given the variables MineVolume and MineArea, respectively, which will be used later to print the results to the screen.
-                $("#VolumeValue").text("Volume above elevation (cubic meters): " + MineVolume);
-                $("#AreaValue").text("Area within mine selection above elevation (square meters): " + MineArea);
+                $("#VolumeValue").text("Volume above elevation (cubic meters): " + Math.floor(MineVolume));
+                $("#AreaValue").text("Area within mine selection above elevation (square meters): " + Math.floor(MineArea));
             }, null);
         }
 
 //Function to give the status of the job.
         function gpJobStatus(jobinfo) {
-            domUtils.show(dom.byId('status'));
+            //domUtils.show(dom.byId('status'));
             var jobstatus = '';
             switch (jobinfo.jobStatus) {
                 case 'esriJobSubmitted':
@@ -81,7 +108,7 @@ require(["dojo/dom",
             console.error(error);
         }
 
-        function ComputeVolume(evtObj) {
+        function ComputeVolume() {
             LoadingPicture.removeClass("hidden");
             var gpServiceUrl = "http://geoserver.byu.edu/arcgis/rest/services/MariahShawn/MiningExtractionTool3/GPServer/MiningExtractionTool3";
             gp = new Geoprocessor(gpServiceUrl);
@@ -171,16 +198,11 @@ require(["dojo/dom",
         }
 
 //This function retrieves the elevation from the point that is selected.
-        function GetElevationfromPoint(results, messages) {
+        function GetElevationfromPoint(results) {
             LoadingPicture.addClass("hidden");
             elevation = results[0].value.features[0].attributes.RASTERVALU;
-            $("#MinimumElevation").val(elevation);
-            //map.setExtent(graphicsUtils.graphicsExtent(map.graphics.graphics), true);
+            $("#MinimumElevation").val(Math.floor(elevation));
         }
-
-
-
-
 
 
         //Run the gp task when the app loads to display default incidents
